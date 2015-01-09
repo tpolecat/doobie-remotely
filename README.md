@@ -1,5 +1,5 @@
 # doobie-remotely
-demo of doobie hooked up to remotely
+Very brief demo of [doobie](https://github.com/tpolecat/doobie) hooked up to [remotely](https://github.com/oncue/remotely).
 
 To run this you'll need the doobie and remotely tips, and a database with the doobie world db set up. Probably not worth it.
 
