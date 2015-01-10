@@ -13,34 +13,9 @@ import scalaz.\/
 import scalaz.concurrent.Task
 import scodec.Codec
 
-// When I try to factor out the protocol thus:
-//
-// object WorldProto {
-//   val definition = remotely.Protocol
-//     .empty
-//     .codec[String]
-//     .codec[scalaz.\/[String, Int]]
-//     .specify1[String, scalaz.\/[String, Int]]("pop")
-// }
-//
-// @GenServer(demo.WorldProto.definition) 
-// abstract class World2Server
-//
-// I get the following error:
-//
-// [error] /Users/rnorris/Scala/doobie-remotely/src/main/scala/demo/World2.scala:26: exception during macro expansion: 
-// [error] scala.tools.reflect.ToolBoxError: reflective compilation has failed: 
-// [error] 
-// [error] object definition is not a member of package demo.WorldProto
-// [error]   at scala.tools.reflect.ToolBoxFactory$ToolBoxImpl$ToolBoxGlobal.throwIfErrors(ToolBoxFactory.scala:315)
-// [error]   at scala.tools.reflect.ToolBoxFactory$ToolBoxImpl$ToolBoxGlobal.compile(ToolBoxFactory.scala:249)
-// [error]   at scala.tools.reflect.ToolBoxFactory$ToolBoxImpl.compile(ToolBoxFactory.scala:416)
-// [error]   at scala.tools.reflect.ToolBoxFactory$ToolBoxImpl.eval(ToolBoxFactory.scala:419)
-// [error]   at scala.reflect.macros.runtime.Evals$class.eval(Evals.scala:16)
-// [error]   at scala.reflect.macros.runtime.Context.eval(Context.scala:6)
-// [error]   at remotely.GenServer$.impl(GenServer.scala:57)
-// [error] @GenServer(demo.WorldProto.definition) 
-// [error]  ^
+// N.B. you can't factor out the Protocol here because everything needs to be available to the
+// compiler; it's just passing the AST. So in order to do this it needs to be defined in another
+// project that doesn't depend on this one. See https://github.com/oncue/remotely/issues/13
 
 @GenServer(remotely.Protocol
     .empty
