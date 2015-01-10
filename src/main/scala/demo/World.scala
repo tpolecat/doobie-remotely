@@ -44,7 +44,8 @@ object WorldMain extends App {
   import World.env
   
   val addr = new InetSocketAddress("localhost", 8083)
-  val server = env.serveNetty(addr, Executors.newCachedThreadPool, Monitoring.consoleLogger("[server]"))
+  val pool = Executors.newCachedThreadPool
+  val server = env.serveNetty(addr, pool, Monitoring.consoleLogger("[server]"))
   val transport = NettyTransport.single(addr)
   val loc: Endpoint = Endpoint.single(transport)
   
@@ -60,6 +61,7 @@ object WorldMain extends App {
   } finally {
     transport.shutdown()
     server()
+    pool.shutdown()
   }
 
 }
