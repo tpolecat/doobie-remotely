@@ -16,7 +16,7 @@ scalacOptions ++= Seq(
   "-language:higherKinds",
   "-language:implicitConversions",
   "-language:experimental.macros",
-  "-unchecked",
+  "-language:reflectiveCalls",
   "-Xlint",
   "-Yno-adapted-args",       
   "-Ywarn-dead-code",       
@@ -28,4 +28,6 @@ libraryDependencies ++= Seq(
   "org.tpolecat"       %% "doobie-core" % "0.2.0-SNAPSHOT",
   "org.postgresql"     %  "postgresql"  % "9.3-1102-jdbc41"
 )
+
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full)
 
