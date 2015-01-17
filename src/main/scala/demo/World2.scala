@@ -59,8 +59,7 @@ object World2Main extends App {
   // Server
   val server = new World2ServerImpl
   val serverMon = Monitoring.consoleLogger("[server]")
-  val pool = Executors.newCachedThreadPool
-  val stop = server.environment.serveNetty(addr, pool, serverMon)
+  val stop = server.environment.serveNetty(addr, monitoring = serverMon)
 
   // Client
   val transport = NettyTransport.single(addr)
@@ -74,8 +73,7 @@ object World2Main extends App {
     }
   } finally {
     transport.shutdown()
-    stop()
-    pool.shutdown()
+    stop.run
   }
 
 }
